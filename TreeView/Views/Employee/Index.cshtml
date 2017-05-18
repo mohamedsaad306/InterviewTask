@@ -1,0 +1,44 @@
+﻿@model TreeView.Models.EmployeesViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<ul>
+
+    @{var gm = Model.Employees.Where(e => e.ManagerId == null).First(); }
+
+    @PrintTree(gm, Model.Employees)
+
+</ul>
+
+
+
+@helper PrintTree(TreeView.Models.Employee RootManager, List<TreeView.Models.Employee> Employees)
+{
+
+    var managersFollowers = Employees.Where(e => e.ManagerId == RootManager.Id).ToList();
+
+
+
+    if (managersFollowers.Count == 0)
+    {
+        <li>@RootManager.Name </li>
+    }
+    else
+    {
+        <h4>@RootManager.Name</h4>
+        
+
+    foreach (var follower in managersFollowers)
+    {
+        <ul>
+            @PrintTree(follower, Employees)
+        </ul>
+    }
+
+
+    }
+
+
+}

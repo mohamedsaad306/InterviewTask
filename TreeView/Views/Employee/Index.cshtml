@@ -4,15 +4,16 @@
 }
 
 <h2>Index</h2>
-<ul>
+<div class="" >
+    <ul>
 
-    @{var gm = Model.Employees.Where(e => e.ManagerId == null).First(); }
+        @{var gm = Model.Employees.Where(e => e.ManagerId == null).First(); }
 
-    @PrintTree(gm, Model.Employees)
+        @PrintTree(gm, Model.Employees)
 
-</ul>
-
-
+    </ul>
+</div>
+<
 
 @helper PrintTree(TreeView.Models.Employee RootManager, List<TreeView.Models.Employee> Employees)
 {
@@ -27,15 +28,15 @@
     }
     else
     {
-        <h4>@RootManager.Name</h4>
-        
+        <li><h4>@RootManager.Name</h4></li>
 
-    foreach (var follower in managersFollowers)
-    {
-        <ul>
-            @PrintTree(follower, Employees)
-        </ul>
-    }
+
+        foreach (var follower in managersFollowers)
+        {
+            <ul>
+                @PrintTree(follower, Employees)
+            </ul>
+        }
 
 
     }
